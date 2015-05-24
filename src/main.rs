@@ -29,14 +29,14 @@ impl fmt::Display for Individual {
 
 impl Individual {
     /// Return a new Individual with given chromosome
-    fn new(s: &str) -> Individual {
-        Individual {chromosome: s.to_string(), fitness: 0}
+    fn new<S: Into<String>>(s: S) -> Individual {
+        Individual {chromosome: s.into(), fitness: 0}
     }
 
     /// Return a new Individual with a random chromosome of specified length
     fn new_random(chromosome_size: usize) -> Individual {
         let chromosome: String = (0..chromosome_size).map(|_| (0x20u8 + (rand::random::<f32>() * 90.) as u8) as char).collect();
-        Individual::new(chromosome.as_str())
+        Individual::new(chromosome)
     }
 
     /// Mutate the individual
@@ -104,7 +104,7 @@ impl<'a> Population<'a> {
             }
         }
 
-        (Individual::new(chromosome_a.as_str()), Individual::new(chromosome_b.as_str()))
+        (Individual::new(chromosome_a), Individual::new(chromosome_b))
     }
 
     /// Let our population breed and create another generation
