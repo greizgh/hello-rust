@@ -1,4 +1,3 @@
-#![feature(convert)]
 use std::fmt;
 extern crate rand;
 use rand::Rng;
@@ -94,7 +93,7 @@ impl<'a> Population<'a> {
         let mut chromosome_a = String::with_capacity(parent_a.chromosome.len());
         let mut chromosome_b = String::with_capacity(parent_b.chromosome.len());
 
-        for (gene_a, gene_b) in parent_a.chromosome.as_str().chars().zip(parent_b.chromosome.as_str().chars()) {
+        for (gene_a, gene_b) in parent_a.chromosome.chars().zip(parent_b.chromosome.chars()) {
             if rand::thread_rng().gen_range(0., 100.) <= self.crossover_rate * 100. {
                 chromosome_a.push(gene_b);
                 chromosome_b.push(gene_a);
@@ -142,14 +141,14 @@ fn main() {
     let target = "Hello World!";
 
     let fitness = |individual: &Individual| -> i32 {
-        levenshtein::levenshtein(target, individual.chromosome.as_str())
+        levenshtein::levenshtein(target, &individual.chromosome)
     };
 
     let mut pop = Population::new(100, target.len(), 0.5, 0.01, &fitness);
 
     pop.compute_fitness();
 
-    while pop.fittest().chromosome.as_str() != target {
+    while &pop.fittest().chromosome != target {
         println!("Generation {}, size: {}\tFittest: {} ({})", pop.generation, pop.individuals.len(), pop.fittest().chromosome, pop.fittest().fitness);
 
         pop.breed();
