@@ -109,7 +109,7 @@ impl<'a> Population<'a> {
     /// Let our population breed and create another generation
     fn breed(&mut self) {
         let pop_size = self.individuals.len();
-        self.individuals.truncate(40);
+        self.individuals.truncate((pop_size as f32 * 0.8) as usize);
         let parents = self.individuals.clone();
         let chromosome_size = parents[0].chromosome.len();
 
