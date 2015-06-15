@@ -6,7 +6,7 @@ mod levenshtein;
 
 
 /// Individual, member of a Population
-#[derive(Debug,Clone,Eq,PartialEq,PartialOrd)]
+#[derive(Clone,Eq,PartialEq,PartialOrd)]
 struct Individual {
     /// Sequence of genes
     chromosome: String,
@@ -22,7 +22,7 @@ impl std::cmp::Ord for Individual {
 
 impl fmt::Display for Individual {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.chromosome)
+        write!(f, "{} ({})", self.chromosome, self.fitness)
     }
 }
 
@@ -149,9 +149,9 @@ fn main() {
     pop.compute_fitness();
 
     while &pop.fittest().chromosome != target {
-        println!("Generation {}, size: {}\tFittest: {} ({})", pop.generation, pop.individuals.len(), pop.fittest().chromosome, pop.fittest().fitness);
+        println!("Generation {}, size: {}\tFittest: {}", pop.generation, pop.individuals.len(), pop.fittest());
 
         pop.breed();
     }
-    println!("Generation {}, size: {}\tFittest: {} ({})", pop.generation, pop.individuals.len(), pop.fittest().chromosome, pop.fittest().fitness);
+    println!("Generation {}, size: {}\tFittest: {}", pop.generation, pop.individuals.len(), pop.fittest());
 }
