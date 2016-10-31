@@ -4,4 +4,4 @@ version = "0.1.0"
 authors = ["Greizgh <greizgh@ephax.org>"]
 
 [dependencies]
-rand = "0.3"
+rand = "0.3.14"

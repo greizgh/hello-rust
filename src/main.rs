@@ -78,7 +78,7 @@ impl<'a> Population<'a> {
     /// Evaluate fitness for every individual in the population
     fn compute_fitness(&mut self) {
         for individual in &mut self.individuals {
-            individual.fitness = (self.fitness)(&individual);
+            individual.fitness = (self.fitness)(individual);
         }
         self.individuals.sort();
     }
@@ -87,7 +87,7 @@ impl<'a> Population<'a> {
     fn fittest(&self) -> &Individual {
         &self.individuals[0]
     }
-    
+
     /// Mix two individual
     fn crossover(&self, parent_a: &Individual, parent_b: &Individual) -> (Individual, Individual) {
         let mut chromosome_a = String::with_capacity(parent_a.chromosome.len());

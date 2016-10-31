@@ -2,7 +2,7 @@ use std::cmp;
 
 pub fn levenshtein(word1: &str, word2: &str) -> i32 {
     //! Compute the levenshtein distance between two words
-    
+
     let m = word1.len();
     let n = word2.len();
 
